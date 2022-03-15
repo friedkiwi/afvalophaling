@@ -45,6 +45,10 @@
             .qr {
                 display: block;
             }
+
+            .srclink {
+                display: none;
+            }
         }
     </style>
 </head>
@@ -128,6 +132,9 @@
     <div class="qr">
         <img src="web_page_qr.png" alt="web page URL QR code" />
     </div>
+    <p class="srclink">
+        De broncode voor deze pagina staat op <a href="https://github.com/friedkiwi/afvalophaling">Github</a>.
+    </p>
 </div>
 </body>
 </html>
