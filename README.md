@@ -5,4 +5,4 @@ generate the trash collection calendar for our building.
 
 ## Usage:
 
-    docker run -p8080:8080 friedkiwi/afvalophaling
+    docker run -p8080:8080 ghcr.io/friedkiwi/afvalophaling
