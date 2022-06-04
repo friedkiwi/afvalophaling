@@ -16,7 +16,7 @@ jobs:
         name: Build & push Docker image
         with:
           image: afvalophaling
-          tags: "${GITHUB_REF##*/}", latest
+          tags: ${{ GITHUB_REF##*/ }}, latest
           registry: ghcr.io
           dockerfile: Dockerfile
           username: ${{ github.actor }}
