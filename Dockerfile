@@ -1,11 +1,7 @@
-FROM tomcat:9
+FROM ibmjava:11-jdk
 
 # build application
 COPY . /src
-RUN cd /src && chmod +x ./mvnw && ./mvnw compile && ./mvnw war:war
+RUN cd /src && chmod +x ./mvnw && ./mvnw compile
 
-# install application
-RUN cp /src/target/*.war /usr/local/tomcat/webapps/ROOT.war
-
-# cleanup
-RUN rm -Rf /src
+CMD cd /src && ./mvnw jetty:run 
