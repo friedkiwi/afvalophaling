@@ -17,6 +17,8 @@ public class IndexAction extends ActionSupport {
     private LocalDateTime glasDagStart = LocalDateTime.of(2022,02,04,1,1);
     private LocalDateTime papierDagStart = LocalDateTime.of(2022,02,1,1,1);
 
+    private LocalDateTime pmdDagStart = LocalDateTime.of(2022,05,24, 1,1);
+
     private static final Logger logger = LogManager.getLogger(IndexAction.class);
     public String execute() {
         return SUCCESS;
@@ -28,46 +30,40 @@ public class IndexAction extends ActionSupport {
         return false;
     }
 
-    private boolean isGlasdag(LocalDate dag) {
+    private boolean isTweewekelijkseDag(LocalDate dag, LocalDateTime startpunt, DayOfWeek shortcutDag) {
         // shortcut
-        if (dag.getDayOfWeek() != DayOfWeek.FRIDAY)
+        if (dag.getDayOfWeek() != shortcutDag)
             return false;
 
-        LocalDate glasDagWork = LocalDate.from(glasDagStart);
+        LocalDate tweewekelijkseDagWork = LocalDate.from(startpunt);
         // get next glasdag
-        while (glasDagWork.toEpochDay() < dag.toEpochDay()) {
-            glasDagWork = glasDagWork.plusDays(14);
+        while (tweewekelijkseDagWork.toEpochDay() < dag.toEpochDay()) {
+            tweewekelijkseDagWork = tweewekelijkseDagWork.plusDays(14);
         }
 
-        if (glasDagWork.isEqual(dag))
+        if (tweewekelijkseDagWork.isEqual(dag))
             return true;
 
         return false;
     }
 
+    private boolean isGlasdag(LocalDate dag) {
+        return isTweewekelijkseDag(dag, glasDagStart, DayOfWeek.FRIDAY);
+    }
+
     private  boolean isPapierdag(LocalDate dag) {
-        // shortcut
-        if (dag.getDayOfWeek() != DayOfWeek.TUESDAY)
-            return false;
+        return isTweewekelijkseDag(dag, papierDagStart, DayOfWeek.TUESDAY);
+    }
 
-        LocalDate papierDagWork = LocalDate.from(papierDagStart);
-        // get next glasdag
-        while (papierDagWork.toEpochDay() < dag.toEpochDay()) {
-            papierDagWork = papierDagWork.plusDays(14);
-        }
-
-
-        if (papierDagWork.isEqual(dag))
-            return true;
-
-        return false;
+    private boolean isPMDdag(LocalDate dag) {
+        return isTweewekelijkseDag(dag, pmdDagStart, DayOfWeek.TUESDAY);
     }
 
     public List getOphaaldagen() {
         ArrayList<Ophaaldag> ophaaldagen = new ArrayList<>();
 
         LocalDate workDate = LocalDate.now();
-        for (int i = 0; i < 40; i++) {
+        for (int i = 0; i < 35; i++) {
             Ophaaldag ophaaldag = new Ophaaldag(workDate.atStartOfDay());
             if (isRestafvaldag(workDate))
                 ophaaldag.addOphaling(Ophaling.REST);
@@ -75,6 +71,8 @@ public class IndexAction extends ActionSupport {
                 ophaaldag.addOphaling(Ophaling.GLAS);
             if (isPapierdag(workDate))
                 ophaaldag.addOphaling(Ophaling.PAPIER);
+            if (isPMDdag(workDate))
+                ophaaldag.addOphaling(Ophaling.PMD);
             if (ophaaldag.hasOphalingen())
                 ophaaldagen.add(ophaaldag);
             workDate = workDate.plusDays(1);

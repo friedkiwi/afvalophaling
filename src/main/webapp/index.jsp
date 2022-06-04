@@ -63,17 +63,18 @@
             <li>Restafval</li>
             <li>Papier</li>
             <li>Glas</li>
+            <li>PMD</li>
         </ul>
         Deze containers worden opgehaald volgens het volgende schema:
         <ul>
             <li>Restafval: elke dinsdag en vrijdag</li>
             <li>Glas: vrijdag, tweewekelijks</li>
             <li>Papier: dinsdag, tweewekelijks</li>
+            <li>PMD: dinsdag, tweewekelijks</li>
         </ul>
     </p>
     <p>
-        PMD word niet op deze manier opgehaald, u dient dit dus zelf bij te houden in uw appartement en buiten te zetten volgens de Ivago kalender.
-        Wanneer de containers vol zijn (eg. papier), gelieve dit ook zelf bij te houden en buiten te zetten volgens de Ivago kalender.
+        Wanneer de containers vol zijn (eg. papier of PMD), gelieve dit ook zelf bij te houden en buiten te zetten volgens de Ivago kalender.
     </p>
 <h2>Eerstvolgende ophaalbeurten:</h2>
     <table class="table">
@@ -95,10 +96,12 @@
                             <s:property value="ophaling" />
                             <s:if test='#ophaling.toString() == "Restafval"'>
                                 <span class="back-black">Zwart</span>
-
                             </s:if>
                             <s:if test='#ophaling.toString() == "Papier"'>
                                 <span class="back-blue">Blauw</span>
+                            </s:if>
+                            <s:if test='#ophaling.toString() == "PMD"'>
+                                <span class="back-black">Zwart</span>
                             </s:if>
                             <s:if test='#ophaling.toString() == "Glas"'>
                                 <span class="back-orange">Oranje</span>
@@ -110,23 +113,6 @@
                 <td><s:date name="buitenzetDatum" format="dd/MM/yyyy" /> vanaf 18:00</td>
             </tr>
         </s:iterator>
-        <!--
-        <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-        </tr>
-        <tr>
-            <th scope="row">2</th>
-            <td>Jacob</td>
-            <td>Thornton</td>
-        </tr>
-        <tr>
-            <th scope="row">3</th>
-            <td>Larry</td>
-            <td>the Bird</td>
-        </tr>
-        -->
         </tbody>
     </table>
     <div class="qr">

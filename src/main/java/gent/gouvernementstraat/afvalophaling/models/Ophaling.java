@@ -15,5 +15,11 @@ public enum Ophaling {
         public String toString() {
             return "Restafval";
         }
+    },
+
+    PMD {
+        public String toString() {
+            return "PMD";
+        }
     }
 }
