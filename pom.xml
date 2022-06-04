@@ -48,7 +48,7 @@
                 <version>9.4.35.v20201120</version>
                 <configuration>
                     <webApp>
-                        <contextPath>/${build.finalName}</contextPath>
+                        <contextPath>/</contextPath>
                     </webApp>
                     <stopKey>CTRL+C</stopKey>
                     <stopPort>8999</stopPort>
